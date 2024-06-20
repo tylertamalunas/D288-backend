@@ -1,7 +1,8 @@
 package com.example.demo.entities;
 
 import jakarta.persistence.*;
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
@@ -11,13 +12,14 @@ import java.util.Set;
 
 @Entity
 @Table(name ="excursions")
-@Data
+@Getter
+@Setter
 public class Excursion {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "excursion_id")
-    private Long id;
+    @Column(name = "excursion_id", nullable = false)
+    private long id;
 
     @Column(name = "excursion_title")
     private String excursion_title;
@@ -29,6 +31,7 @@ public class Excursion {
     private String image_URL;
 
     @ManyToOne
+    @JoinColumn(name = "vacation_id", nullable = false)
     private Vacation vacation;
 
     @Column(name = "create_date")
@@ -39,7 +42,7 @@ public class Excursion {
     @UpdateTimestamp
     private Date last_update;
 
-    @ManyToMany
+    @ManyToMany(mappedBy = "excursions")
     private Set<CartItem> cartitems;
 
 }

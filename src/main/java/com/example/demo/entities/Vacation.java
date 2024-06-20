@@ -1,7 +1,8 @@
 package com.example.demo.entities;
 
 import jakarta.persistence.*;
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
@@ -10,14 +11,15 @@ import java.util.Date;
 import java.util.Set;
 
 @Entity
-@Table(name ="vacation")
-@Data
+@Table(name ="vacations")
+@Getter
+@Setter
 public class Vacation {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "vacation_id")
-    private Long id;
+    @Column(name = "vacation_id", nullable = false)
+    private long id;
 
     @Column(name = "vacation_title")
     private String vacation_title;
@@ -25,7 +27,7 @@ public class Vacation {
     @Column(name = "description")
     private String description;
 
-    @Column(name = "travel_price")
+    @Column(name = "travel_fare_price")
     private BigDecimal travel_price;
 
     @Column(name = "image_url")
@@ -39,7 +41,7 @@ public class Vacation {
     @UpdateTimestamp
     private Date last_update;
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "category")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "vacation", fetch = FetchType.LAZY)
     private Set<Excursion> excursions;
 
 }

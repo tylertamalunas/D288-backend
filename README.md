@@ -15,8 +15,8 @@ For this project, you will be building your project using IntelliJ IDEA (Ultimat
 
 
 ## D.   Write code for the entities package that includes entity classes and the enum designed to match the UML diagram.
-- Created all entities and added attributes
-- 
+- Created all entities and added associations and column names
+- Created enumerator and set up association
 
 ## E.   Write code for the dao package that includes repository interfaces for the entities that extend JpaRepository, and add cross-origin support.
 

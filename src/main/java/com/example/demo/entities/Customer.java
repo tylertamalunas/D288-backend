@@ -1,7 +1,8 @@
 package com.example.demo.entities;
 
 import jakarta.persistence.*;
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
@@ -10,18 +11,19 @@ import java.util.Set;
 
 @Entity
 @Table(name ="customers")
-@Data
+@Getter
+@Setter
 public class Customer {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "customer_id")
-    private Long id;
+    @Column(name = "customer_id", nullable = false)
+    private long id;
 
-    @Column(name = "first_name")
+    @Column(name = "customer_first_name")
     private String firstName;
 
-    @Column(name = "last_name")
+    @Column(name = "customer_last_name")
     private String lastName;
 
     @Column(name = "address")
@@ -42,8 +44,9 @@ public class Customer {
     private Date last_update;
 
     @ManyToOne
+    @JoinColumn(name = "division_id", nullable = false)
     private Division division;
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "category")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "customer", fetch = FetchType.LAZY)
     private Set<Cart> carts;
 }
